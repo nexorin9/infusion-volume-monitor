@@ -1,0 +1,26 @@
+# 镜像里不需要的东西（构建上下文瘦身 + 避免把凭据/运行时数据带进镜像层）
+.git
+.gitignore
+.env
+.env.*
+!.env.example
+venv/
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+tests/
+docs/
+var/
+data/
+logs/
+runs/
+*.db
+*.sqlite
+*.sqlite3
+*.log
+.DS_Store
+.vscode/
+.idea/

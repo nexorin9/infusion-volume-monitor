@@ -1,0 +1,141 @@
+"""袋型标定与体积/ETA 估计。
+
+* ``models``    标定记录（面积比 → 毫升的分段带）、标定样例与拟合；
+* ``cavity``    袋型腔体几何（观测量反解 → 体积分数）、残留补偿与自校准；
+* ``rate_parser`` 输注医嘱速率文本解析（ml/h、滴/分与滴系数换算）；
+* ``eta``       滴速来源优先级、医嘱与泵速遥测的冲突判定、ETA 计算；
+* ``uncertainty`` 体积不确定度与置信门禁（几何版本 / 面积比方差 / 遮挡占比三证合成）；
+* ``estimator`` 毫升与 ETA 估计、滴速来源优先级，以及 uncalibrated / 置信两套门禁。
+"""
+
+from .cavity import (
+    CavityModel,
+    CavityReading,
+    CavitySpec,
+    DeviationObservation,
+    LearnedResidual,
+    learn_residual,
+)
+from .eta import (
+    DEFAULT_CONFLICT_TOLERANCE,
+    ETA_SOURCES,
+    EtaEstimate,
+    RateConflict,
+    RateResolution,
+    eta_minutes_for,
+    estimate_eta,
+    relative_deviation,
+    resolve_rate_sources,
+)
+from .estimator import (
+    SUPPRESSION_REASONS,
+    TelemetryCache,
+    TelemetrySample,
+    VolumeEstimate,
+    estimate_bag,
+    parse_order_rate,
+    recompute_for_new_version,
+    resolve_rate,
+)
+from .uncertainty import (
+    GATE_HIGH_OCCLUSION,
+    GATE_LOW_CONFIDENCE,
+    GATE_OK,
+    GATES,
+    ObservationQuality,
+    UncertaintyParams,
+    UncertaintyVerdict,
+    band_sensitivity,
+    evaluate_volume_uncertainty,
+    reason_hint_zh,
+)
+from .models import (
+    BandFit,
+    BagTypeCalibration,
+    CalibrationSample,
+    VolumeReading,
+    fit_bands,
+)
+from .versions import (
+    DEFAULT_REVIEW_THRESHOLD,
+    REVIEW_THRESHOLD_ERROR,
+    VERSION_STATUSES,
+    DeviationVerdict,
+    OverlappingVersionWindow,
+    VersionView,
+    VersionWindow,
+    active_at,
+    assert_no_overlapping_window,
+    classify_all,
+    classify_version,
+    judge_deviation,
+    plan_supersede,
+    promote_due,
+)
+from .rate_parser import (
+    DEFAULT_DROP_FACTOR_GTT_PER_ML,
+    PRECISION_DROP_FACTOR_GTT_PER_ML,
+    ParsedRate,
+    normalize_rate_text,
+    parse_rate,
+    parse_rate_text,
+)
+
+__all__ = [
+    "BandFit",
+    "DEFAULT_REVIEW_THRESHOLD",
+    "DeviationVerdict",
+    "OverlappingVersionWindow",
+    "REVIEW_THRESHOLD_ERROR",
+    "VERSION_STATUSES",
+    "VersionView",
+    "VersionWindow",
+    "active_at",
+    "assert_no_overlapping_window",
+    "BagTypeCalibration",
+    "CalibrationSample",
+    "CavityModel",
+    "CavityReading",
+    "CavitySpec",
+    "DEFAULT_CONFLICT_TOLERANCE",
+    "DEFAULT_DROP_FACTOR_GTT_PER_ML",
+    "DeviationObservation",
+    "ETA_SOURCES",
+    "EtaEstimate",
+    "LearnedResidual",
+    "PRECISION_DROP_FACTOR_GTT_PER_ML",
+    "ParsedRate",
+    "GATES",
+    "GATE_OK",
+    "GATE_LOW_CONFIDENCE",
+    "GATE_HIGH_OCCLUSION",
+    "ObservationQuality",
+    "RateConflict",
+    "RateResolution",
+    "UncertaintyParams",
+    "UncertaintyVerdict",
+    "band_sensitivity",
+    "evaluate_volume_uncertainty",
+    "reason_hint_zh",
+    "SUPPRESSION_REASONS",
+    "TelemetryCache",
+    "TelemetrySample",
+    "VolumeEstimate",
+    "VolumeReading",
+    "estimate_bag",
+    "estimate_eta",
+    "eta_minutes_for",
+    "fit_bands",
+    "judge_deviation",
+    "plan_supersede",
+    "promote_due",
+    "learn_residual",
+    "normalize_rate_text",
+    "parse_order_rate",
+    "parse_rate",
+    "parse_rate_text",
+    "recompute_for_new_version",
+    "relative_deviation",
+    "resolve_rate",
+    "resolve_rate_sources",
+]
